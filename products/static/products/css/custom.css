@@ -1,0 +1,65 @@
+/*
+Custom Css
+*/
+
+.customButtons {
+    background-color: #59ab6e !important;
+    border: 1px solid #59ab6e !important;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.formRow {
+    margin-top: 4%;
+}
+
+.profile-link {
+    color: #212934 !important;
+    text-decoration: none;
+}
+
+.profile-link:hover {
+    color: #59ab6e !important;
+}
+
+.orderTableBtn {
+    background-color: #59ab6e !important;
+    border: 1px solid #59ab6e !important;
+    width: 30%;
+    margin-top: 0;
+}
+
+.productImage {
+    width: 75px;
+    height: 75px;
+}
+
+.productDetailBtn {
+    width: 100%;
+}
+
+.checkOutBtn {
+    margin-bottom: 15px;
+}
+
+select {
+    width: 400px;
+    text-align-last: center;
+}
+
+.applyBtn {
+    width: 100px;
+    height: 35px;
+}
+
+#offerCode {
+    width: 100px;
+}
+
+.paymentMark {
+    background-color: #59ab6e !important;
+}
+
+.countryTd {
+    width: 100px;
+}

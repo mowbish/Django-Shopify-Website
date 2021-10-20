@@ -1,0 +1,44 @@
+{% extends 'products/base.html' %}
+
+{% block content %}
+
+    <!-- Start Featured Product -->
+    <section class="bg-light">
+        <div class="container py-5">
+            <div class="row text-center py-3">
+                <div class="col-lg-6 m-auto">
+                    <h1 class="h1">Most visited products</h1>
+
+
+                </div>
+            </div>
+            <div class="row">
+
+                {% for product in products %}
+
+                    <div class="col-12 col-md-4 mb-4">
+                        <div class="card h-100">
+                            <a href="{% url 'products:product_detail' product.slug %}">
+                                <img src="{{ product.image.url }}" class="card-img-top"
+                                     alt="feature_prod_01">
+                            </a>
+                            <div class="card-body">
+                                <ul class="list-unstyled d-flex justify-content-between">
+                                    <li class=" text-right">{{ product.price }}</li>
+                                </ul>
+                                <a href="#"
+                                   class="h2 text-decoration-none text-dark profile-link">{{ product.name }}</a><br>
+                                <p class="card-text ">
+                                    {{ product.description | slice:":100" }}...
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+    <!-- End Featured Product -->
+{% endblock %}

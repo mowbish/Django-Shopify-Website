@@ -1,0 +1,97 @@
+{% extends 'products/base.html' %}
+{% load bootstrap4 %}
+{% bootstrap_field field %}
+
+{% block content %}
+    <!-- Start Content -->
+    <div class="container py-5">
+        <div class="row">
+
+            <div class="col-lg-3">
+                <h1 class="h2 pb-4 text-primary">Categories</h1>
+
+                {% for category in categories %}
+                    <a class="collapsed d-flex justify-content-between h3 text-decoration-none profile-link"
+                       href="{% url 'products:product_by_category' category.name %}">
+                        {{ category }}
+                    </a><br>
+                {% endfor %}
+            </div>
+
+            <div class="col-lg-9">
+                <div class="row">
+
+                    <div class="col-md-12 d-flex justify-content-center"><h3>Latest Products</h3></div>
+
+                </div>
+
+
+                <div class="row">
+
+                    {% for product in products %}
+
+                        <div class="col-md-4">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="card-img rounded-0 img-fluid" src="/media/{{ product.image }}"
+                                         alt="{{ product.name }} Image">
+
+                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                        <ul class="list-unstyled">
+
+                                            {#                                            Wish list#}
+                                            <li><a class="btn btn-primary text-white"><i
+                                                    class="far fa-heart"></i></a></li>
+
+                                            {#                                            Product detail #}
+                                            <li><a class="btn btn-primary text-white mt-2"
+                                                   href="{% url 'products:product_detail' product.slug %}"><i
+                                                    class="far fa-eye"></i></a></li>
+
+                                            {#                                            Add to basket --- > product with quantity 1#}
+                                            <form action="{% url 'orders:basket' %}" method="POST">
+                                                {% csrf_token %}
+
+                                                <input type="hidden" name="product_name" value="{{ product.name }}">
+                                                <input type="hidden" name="product_quantity"
+                                                       id="product_quantity"
+                                                       value="1">
+
+                                                <li>
+                                                    <button type="submit" class="btn btn-primary text-white mt-2">
+                                                        <i class="fas fa-cart-plus"></i>
+                                                    </button>
+                                                </li>
+                                            </form>
+
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <a href="{% url 'products:product_detail' product.slug %}"
+                                       class="h3 text-decoration-none">{{ product.name }}</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                        <li class="pt-2">
+                                            <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                            <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                            <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                            <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                            <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                        </li>
+                                    </ul>
+                                    <p class="text-center mb-0">{{ product.price }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- End Content -->
+{% endblock %}

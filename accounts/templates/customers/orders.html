@@ -1,0 +1,72 @@
+{% extends 'products/base.html' %}
+{% load bootstrap4 %}
+{% bootstrap_field field %}
+{% bootstrap_field form %}
+
+{% block content %}
+    {#Start mini nav#}
+    <div class="col-xl-12 d-flex justify-content-center">
+        <nav class="navbar navbar-expand-lg ">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link profile-link" href="{% url 'customers:profile' %}">Porofile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link profile-link" href="{% url 'customers:addresses' %}">Addresses</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link profile-link" href="{% url 'customers:change_password' %}">Change
+                                Password</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link profile-link" href="{% url 'customers:logout' %}">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <hr>
+    {#End mini nav#}
+
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Order number</th>
+            <th scope="col">Address</th>
+            <th scope="col">Total Price</th>
+            <th scope="col">Price After Discount</th>
+            <th scope="col">Status</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+
+        {% for order in orders %}
+
+            <tr>
+                <th scope="row">{{ order.count }}</th>
+
+
+                <td>
+                    <a href="{% url 'customers:order_items' order.id %}">
+                        <button type="button" class="orderTableBtn btn">{{ forloop.counter }}</button>
+                    </a>
+                </td>
+
+
+                <td> {{ order.address.state }} {{ order.address.city }} {{ order.address.address }} </td>
+                <td>{{ order.total_price }}</td>
+                <td>{{ order.total_price_with_discount }}</td>
+                <td>{{ order.status | title }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

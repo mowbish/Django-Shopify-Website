@@ -1,0 +1,150 @@
+{% extends 'products/base.html' %}
+{% load subtotal %}
+{% load bootstrap4 %}
+{% bootstrap_field field %}
+{% bootstrap_field form %}
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+        {#Start mini nav#}
+        <div class="col-xl-12 d-flex justify-content-center">
+            <nav class="navbar navbar-expand-lg ">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link profile-link" href="{% url 'customers:orders' %}">Orders</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link profile-link" href="{% url 'customers:addresses' %}">Addresses</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link profile-link" href="{% url 'customers:profile' %}">Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link profile-link" href="{% url 'customers:change_password' %}">Change
+                                    Password</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link profile-link" href="{% url 'customers:logout' %}">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <hr>
+        {#End mini nav#}
+    {% endif %}
+
+    {% if messages %}
+        <div class="row d-flex justify-content-center">
+            <div class="col-6 alert-col">
+
+                {% for message in messages %}
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+
+                        <div class="alert alert-danger d-flex justify-content-center" role="alert">
+                            <h6>{{ message }}</h6>
+                        </div>
+
+
+                    {% else %}
+                        <div class="alert alert-primary d-flex justify-content-center" role="alert">
+                            <h6>{{ message }}</h6>
+                        </div>
+
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+        </div>
+
+    {% endif %}
+
+
+    {% if products_in_basket %}
+        {#Start basket table#}
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th scope="col">IMAGE</th>
+                <th scope="col">PRODUCT NAME</th>
+                <th scope="col">PRICE</th>
+                <th scope="col">QUANTITY</th>
+                <th scope="col">SUB TOTAL</th>
+                <th scope="col">UPDATE / DELETE</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for product in products_in_basket %}
+
+                {% for product_name,quantity in request.session.basket.items %}
+
+                    {% if product.name == product_name %}
+
+                        <tr id="{{ product.id }}">
+
+                            <td><img class="productImage" src="/media/{{ product.image }}"
+                                     alt="{{ product.slug }} image"/>
+                            </td>
+
+                            <td>{{ product.name }}</td>
+
+                            <td>{{ product.price }}</td>
+
+                            {#Send new quantity and product name for updating#}
+                            <form action="{% url 'orders:basket' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" class="product_name" name="product_name"
+                                       value="{{ product.name }}">
+                                <td>
+                                    <input type="number" id="basket" name="product_quantity"
+                                           min="1" max="101" value="{{ quantity }}">
+                                </td>
+
+                                <td>{% subtotal_calculator quantity product.price %}</td>
+                                <td>
+
+                                    {#                                    Update  button#}
+                                    <button type="submit" id="updateItemBtn" class="btn btn-primary btn-sm">Update
+                                    </button>
+
+                                    {#                                    Delete item from basket button#}
+                                    <button type="button" id="{{ product.id }}"
+                                            class="btn btn-danger btn-sm deleteItemBtn">Delete
+                                    </button>
+
+                                </td>
+                            </form>
+
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+        {#    Checkout button#}
+
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-2 d-flex justify-content-center">
+                <a href="{% url 'orders:checkout' %}">
+                    <button type="button" class="btn btn-primary checkOutBtn">CHECK OUT</button>
+                </a>
+            </div>
+        </div>
+
+        {#    End checkout button#}
+
+    {% else %}
+        <div class="col-12 d-flex justify-content-center">
+            <h3 class="d-flex justify-content-center">
+                Your basket is empty &#128513;
+            </h3>
+        </div>
+
+    {% endif %}
+{% endblock %}
