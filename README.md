@@ -22,10 +22,30 @@ quickly and comfortably.
 
 # Running the Project Locally
 
-First, clone the repository to your local machine:
+First of all, make sure you have installed python and postgresql on your system
+
+# Windows Users:
+
+Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/mowbish/shopify.git
+git clone https://github.com/mowbish/Django-Shopify-Website.git
+```
+
+Go to the Django-Shopify-Website file and enter this command in CMD:
+
+```bash
+python -m venv venv
+```
+
+After that to activate virtualenv:
+
+```bash
+venv\scripts\activate
+```
+
+```bash
+fill requriment parts of .env file in shopify folder ***
 ```
 
 Install the requirements:
@@ -54,8 +74,12 @@ python manage.py runserver
 
 The project will be available at [**localhost:8000**](127.0.0.1:8000).
 
-# Hint
-you can create superuser and do some works with it:
+
+
+
+Also you can craete superuser and do some thing in admin pannel
+To do this:
+
 ```bash
 python manage.py createsuperuser
 ```
@@ -64,17 +88,18 @@ fill needed data and the go to the:
 ```bash
 localhost:8000/admin
 ```
-well down you are now in superuser panel
+well down you are now in admin panel and you can control website
 
-#if some errors in linux
-if you got an error on "psycopg2" installing in debian base distros
- you should enter in terminal:
+# Linux Users:
 
-```commandline
-sudo apt-get install libpq-dev
+Open terminal and clone the repository to your local machine:
+
+```bash
+git clone https://github.com/mowbish/Django-Shopify-Website.git
 ```
 
-and then
-```commandline
-pip install psycopg2
+Go to the Django-Shopify-Website file and enter this command in terminal:
+
+```bash
+python -m venv venv
 ```
