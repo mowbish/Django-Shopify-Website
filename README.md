@@ -90,7 +90,7 @@ localhost:8000/admin
 ```
 well down you are now in admin panel and you can control website
 
-# Linux Users:
+# GNU/Linux Users:
 
 Open terminal and clone the repository to your local machine:
 
@@ -101,5 +101,50 @@ git clone https://github.com/mowbish/Django-Shopify-Website.git
 Go to the Django-Shopify-Website file and enter this command in terminal:
 
 ```bash
-python -m venv venv
+virtualenv venv
 ```
+
+Now for activate venv:
+
+```bash
+source venv/bin/activate
+```
+Install the requirements:
+
+```bash
+pip install -r requirements.txt --user
+```
+
+Create the database:
+
+```bash
+python manage.py makemigrations
+```
+
+Transfer rows and columns to database:
+
+```bash
+python manage.py migrate
+```
+
+Finally, run the development server:
+
+```bash
+python manage.py runserver
+```
+
+The project will be available at [**localhost:8000**](127.0.0.1:8000).
+
+
+Also you can craete superuser and do some thing in admin pannel
+To do this:
+
+```bash
+python manage.py createsuperuser
+```
+
+fill needed data and the go to the:
+```bash
+localhost:8000/admin
+```
+well down you are now in admin panel and you can control website
